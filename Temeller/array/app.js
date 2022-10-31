@@ -2,7 +2,6 @@ let value;
 
 const numbers= [43,56,3,23,44,35,5];
 
-
 value= numbers.length;
 
 value=numbers[4];
@@ -47,9 +46,6 @@ value=numbers.sort(function(x,y){
 value=numbers.sort(function(x,y){
     return y-x;
 })
-
-
-
 
 console.log(value);
 
