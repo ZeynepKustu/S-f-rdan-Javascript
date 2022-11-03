@@ -12,42 +12,63 @@ eventListeners();
 
 function eventListeners() { //tüm event listenerlar
     form.addEventListener("submit", addTodo);
-    document.addEventListener("DOMContentLoaded",loasAllTodosToUI);
-    secondCardBody.addEventListener("click",deleteTodo);
+    document.addEventListener("DOMContentLoaded", loadAllTodosToUI);
+    secondCardBody.addEventListener("click", deleteTodo);
+    filter.addEventListener("keyup", filterTodos);
 }
-function deleteTodo(e){
-    
-    if(e.target.className=== "fa fa-remove"){
+function filterTodos(e) {
+    const filterValue = e.target.value.toLowerCase();
+    const listItems = document.querySelectorAll(".list-group-item");
+
+    listItems.forEach(function(listItem){
+        const text = listItem.textContent.toLowerCase();
+
+        if (text.indexOf(filterValue) === -1) {
+            //bulamadı
+            listItem.setAttribute("style", "display : none !important");
+        }
+        else {
+            listItem.setAttribute("style", "display : block");
+        }
+
+
+
+    });
+
+}
+function deleteTodo(e) {
+
+    if (e.target.className === "fa fa-remove") {
         e.target.parentElement.parentElement.remove();
         deleteTodoFromStorage(e.target.parentElement.parentElement.textContent);
 
-        showAlert("success","Todo başarıyla silindi...");
+        showAlert("success", "Todo başarıyla silindi...");
     }
 
 
 }
 
-function deleteTodoFromStorage(deletetodo){
-     let todos= getTodosFromStorage();
+function deleteTodoFromStorage(deletetodo) {
+    let todos = getTodosFromStorage();
 
-     todos.forEach(function(todo,index){
-         if(todo === deletetodo){
-              todos.splice(index,1); //arrayda değeri silme
-         }
+    todos.forEach(function (todo, index) {
+        if (todo === deletetodo) {
+            todos.splice(index, 1); //arrayda değeri silme
+        }
 
-     });
+    });
 
-     localStorage.setItem("todos",JSON.stringify(todos));
-     
+    localStorage.setItem("todos", JSON.stringify(todos));
+
 }
 
 
 
-function loadAllTodosToUI(){
-    let todos= getTodosFromStorage();
+function loadAllTodosToUI() {
+    let todos = getTodosFromStorage();
 
-    todos.forEach(function(todo){
-         addTodoToUI(todo);
+    todos.forEach(function (todo) {
+        addTodoToUI(todo);
 
     })
 }
@@ -75,7 +96,7 @@ function addTodo(e) {
 
     e.preventDefault();
 }
-function getTodosFromStorage(){ //storagedan bütün todoları alma
+function getTodosFromStorage() { //storagedan bütün todoları alma
     let todos;
 
     if (localStorage.getItem("todos") === null) {
@@ -89,11 +110,11 @@ function getTodosFromStorage(){ //storagedan bütün todoları alma
 
 }
 function addTodoToStorage(newTodo) {
-    let todos =getTodosFromStorage();
+    let todos = getTodosFromStorage();
 
-   todos.push(newTodo);
+    todos.push(newTodo);
 
-   localStorage.setItem("todos",JSON.stringify(todos));
+    localStorage.setItem("todos", JSON.stringify(todos));
 }
 function showAlert(type, message) {
     const alert = document.createElement("div");
