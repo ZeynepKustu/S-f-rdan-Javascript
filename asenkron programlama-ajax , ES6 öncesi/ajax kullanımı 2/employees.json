@@ -1,0 +1,17 @@
+[
+    {
+        "name": "mustafa murat coşkun",
+        "department": "bilişim",
+        "salary": 3500
+    },
+    {
+        "name": "zeynep küstü",
+        "department": "yazılım",
+        "salary": 9500
+    },
+    {
+        "name": "tacettin küstü",
+        "department": "web geliştirme",
+        "salary": 10000
+    }
+]
